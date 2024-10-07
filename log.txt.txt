@@ -1,0 +1,173 @@
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~
+$ git init proyecto
+Initialized empty Git repository in C:/Users/Wilder/proyecto/.git/
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~
+$ cd proyecto
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git config --global user.name "Wilder"
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git config --global user.email "fabianvaldescruz@gmail.com"
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git checkout -b feature
+Switched to a new branch 'feature'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ echo "Texto inicial" > archivo.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git add archivo.txt
+warning: in the working copy of 'archivo.txt', LF will be replaced by CRLF the next time Git touches it
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git commit -m "Primer commit"
+[feature (root-commit) 285154a] Primer commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 archivo.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ echo "Texto agregado en feature" >> archivo.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git commit -am "Segundo commit en feature"
+warning: in the working copy of 'archivo.txt', LF will be replaced by CRLF the next time Git touches it
+[feature 283893d] Segundo commit en feature
+ 1 file changed, 1 insertion(+)
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git checkout -b master
+Switched to a new branch 'master'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git merge feature
+Already up to date.
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git reset --hard HEAD~1
+HEAD is now at 285154a Primer commit
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git rebase feature
+Successfully rebased and updated refs/heads/master.
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git checkout -b hotfix
+Switched to a new branch 'hotfix'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (hotfix)
+$ echo "Correccion urgente" >> archivo.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (hotfix)
+$ git commit -am "Hotfix"
+warning: in the working copy of 'archivo.txt', LF will be replaced by CRLF the next time Git touches it
+[hotfix d556c9a] Hotfix
+ 1 file changed, 1 insertion(+)
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (hotfix)
+$ git checkout master
+Switched to branch 'master'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git cherry-pick hotfix
+[master ad1b756] Hotfix
+ Date: Mon Oct 7 10:21:14 2024 -0500
+ 1 file changed, 1 insertion(+)
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git checkout feature
+Switched to branch 'feature'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ echo "Cambio en feature" > conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git commit -am "Cambio en feature"
+On branch feature
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        conflicto.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git add conflicto.txt
+warning: in the working copy of 'conflicto.txt', LF will be replaced by CRLF the next time Git touches it
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git commit -am "Cambio en feature"
+[feature afb32a7] Cambio en feature
+ 1 file changed, 1 insertion(+)
+ create mode 100644 conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (feature)
+$ git checkout master
+Switched to branch 'master'
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ echo "Cambio en master" > conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git commit -am "Cambio en master"
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        conflicto.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git add conflicto.txt
+warning: in the working copy of 'conflicto.txt', LF will be replaced by CRLF the next time Git touches it
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git commit -am "Cambio en master"
+[master 34234d1] Cambio en master
+ 1 file changed, 1 insertion(+)
+ create mode 100644 conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git merge feature
+Auto-merging conflicto.txt
+CONFLICT (add/add): Merge conflict in conflicto.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master|MERGING)
+$ git reflog
+34234d1 (HEAD -> master) HEAD@{0}: commit: Cambio en master
+ad1b756 HEAD@{1}: checkout: moving from feature to master
+afb32a7 (feature) HEAD@{2}: commit: Cambio en feature
+283893d HEAD@{3}: checkout: moving from master to feature
+ad1b756 HEAD@{4}: cherry-pick: Hotfix
+283893d HEAD@{5}: checkout: moving from hotfix to master
+d556c9a (hotfix) HEAD@{6}: commit: Hotfix
+283893d HEAD@{7}: checkout: moving from master to hotfix
+283893d HEAD@{8}: rebase (finish): returning to refs/heads/master
+283893d HEAD@{9}: rebase (start): checkout feature
+285154a HEAD@{10}: reset: moving to HEAD~1
+283893d HEAD@{11}: checkout: moving from feature to master
+283893d HEAD@{12}: commit: Segundo commit en feature
+285154a HEAD@{13}: commit (initial): Primer commit
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master|MERGING)
+$ git add conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master|MERGING)
+$ git commit -m "Resuelto el conflicto en conflicto.txt"
+[master 824a9b4] Resuelto el conflicto en conflicto.txt
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$ cat conflicto.txt
+Cambio en master
+Cambio en feature
+
+Wilder@DESKTOP-MHCQFC9 MINGW64 ~/proyecto (master)
+$
+
